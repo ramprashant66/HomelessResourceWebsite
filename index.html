@@ -322,6 +322,25 @@
 
         <div id="main-background"></div>    
     <header>
+        
+         <!-- Google Translate -->
+    <div id="google_translate_element"></div>
+    
+        <!--website logo-->
+      <a href="index.html" id="logo">
+      <img
+        style="
+          position: absolute;
+          top: 42px;
+          left: 0px;
+          width: 180px;
+          height: 130px;
+          object-fit: cover;
+          cursor: pointer;
+        "
+        src="./images/logo.png"
+      />
+          
         <!-- enables users to click on main header to go to main page, the community bulletin -->
         <h1><a id="main-header-link" href="#" onclick="loadPage('home'); return false;">Hornet Homeless Resource Platform</a></h1>
         <p>Connecting you with essential resources and support services.</p>
@@ -1011,7 +1030,14 @@
     </script>
     <!-- Google Maps API at the bottom to ensure page is loaded before everything executes -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKGg3C-vgi0oAAOVbsRsiyRxUZyB_0sks&libraries=places,geometry&callback=initMap"></script>
-    
+
+    <!-- Google Translate -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');}
+    </script>
+
     <footer>
         <ul id="footer-links">
             <li><a href="#" onclick="loadPage('accessibility'); return false;">Accessibility</a></li>
