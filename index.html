@@ -9,16 +9,23 @@
     <!-- Roboto font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
 
+    <!--webiste icon-->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fff;
             color: #212121;
             background-color: transparent; /* So that the #main-background can show through */
 
-        }
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+            }
+        
         #main-background {
             position: absolute;
             top: 0;
@@ -27,8 +34,8 @@
             bottom: 0;
             z-index: -1; /* Ensure it sits below all other elements */
             background-image: url('https://morethanjustparks.com/wp-content/uploads/2020/09/2Q3A5635-2.jpg');
-            background-position: center center;
-            background-size: cover;
+            background-position: center;
+            background-size: cover cover;
             background-repeat: no-repeat;
         }
         
@@ -252,10 +259,15 @@
             color: #E0B64D; /* Highlight color */
             cursor: pointer;
         }
+
         footer {
+             position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             padding: 20px;
-            background-color: #333; /* Dark background for the footer */
-            color: #fff; /* White text color */
+            background-color: #333;
+            color: #fff;
             text-align: center;
         }
         
@@ -340,6 +352,27 @@
         
         .neutral-palette button {
             background-color:#28557f;
+        }
+
+        #home-text
+        {
+            color: black;
+            text-align: center;
+            font-size: 26px;
+            font: roboto;
+            font-weight: 600;
+            padding: 3px;
+        }
+
+        .background-text
+        {
+            position: absolute;
+            top: 250px;
+            left: 70px;
+            right: 70px;
+            /*255- white, last value controls transparency*/
+            background-color: rgba(255, 255, 255, 0.7);
+
         }
 
     </style>
@@ -635,7 +668,7 @@ function loadPage(page, callback) {
                         <button onclick="adjustTextSize('larger')">Larger Text</button>
                         <button onclick="adjustTextSize('smaller')">Smaller Text</button>
                         <button onclick="adjustContrast()">High Contrast</button>
-                        <button onclick="adjustColor()">Neutral Palette</button>
+                        <button id="changeColors" onclick="adjustColor(), changeText()">Neutral Palette</button>
                     </div>
                 `;
                 break;
@@ -646,10 +679,20 @@ function loadPage(page, callback) {
                     <div class="enhanced-readability">
                         <h2>Contact Us</h2>
                         <p>Feel free to reach out to us:</p>
-                        <p>Email: <span id="contact-email" style="cursor:pointer;color:blue;">triplepjarm@gmail.com</span></p>
+                        <p>Email: <span id="contact-email" style="cursor:pointer;color:blue;">triplepjarm@gmail.com</span></p>                       
                         <p>Facebook: <span id="contact-facebook" style="cursor:pointer;color:blue;">Triple PJarm</span></p>
                     </div>
                     `;
+
+                    document.getElementById('contact-facebook').addEventListener('click', function(){
+                        window.open('https://www.facebook.com/profile.php?id=61553158317877');
+                    });
+
+                    document.getElementById('contact-email').addEventListener('click', function(){
+                        open("mailto:triplepjarm@gmail.com");
+                    });
+                    ;
+
                     break;
         
                 case 'feedback':
@@ -686,18 +729,15 @@ function loadPage(page, callback) {
                         `;
                     } else {
                         section.innerHTML = `
-                            <div class="white-text-section">
-                                <h2>Community Events</h2>
-                                <p class="highlight-text">Please log in to submit community events.</p>
-                                <div id="community-events-login-form" class="form-container">
-                                    <h2>Login</h2>
-                                    <input type="email" id="community-events-login-email" placeholder="Email">
-                                    <input type="password" id="community-events-login-password" placeholder="Password">
-                                    <button onclick="login()">Login</button>
-                                    <p><a href="#" onclick="showForm('register-form')">Create an Account</a></p>
-                                    <p><a href="#" onclick="showForm('forgot-password-form')">Forgot Password?</a></p>
-                                </div>
-                            </div>
+                            <div class="background-text">
+                        <div id="home-text">
+                        <h2>Welcome</h2>
+                        <p>We are thrilled you have chosen to use our website to help the local community.</p>
+                        <p>All the information is contained in the tabs above and below for your ease of access.</p>
+                        <p>At the moment, there seems to be no current events posted from your community. When there is, it will appear here.</p>
+                        </div>
+
+                    </div>
                         `;
                     }
                     if (callback && typeof callback === 'function') {
@@ -1009,7 +1049,18 @@ function loadPage(page, callback) {
         function adjustColor() {
             document.body.classList.toggle('neutral-palette');
         }
-        
+
+
+        function changeText() {
+          var button = document.getElementById("changeColors");
+          if (button.innerHTML === "Neutral Palette") {
+            button.innerHTML = "Default Palette";
+          } else {
+            button.innerHTML = "Neutral Palette";
+          }
+        }
+
+
         
         function submitFeedback() {
             const feedback = document.getElementById('feedback').value;
@@ -1056,7 +1107,7 @@ function loadPage(page, callback) {
             });
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        /*document.addEventListener('DOMContentLoaded', function() {
             const contactEmailSpan = document.getElementById('contact-email');
             const contactFacebookSpan = document.getElementById('contact-facebook');
             
@@ -1071,7 +1122,7 @@ function loadPage(page, callback) {
                     window.open('https://www.facebook.com/profile.php?id=61553158317877');
                 });
             }
-        });
+        });*/
         
         
     // Load the default page and resize images
